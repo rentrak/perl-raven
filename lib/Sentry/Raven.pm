@@ -673,9 +673,11 @@ sub _generate_auth_header {
 
 sub _build_json_obj { JSON::XS->new()->utf8(1)->pretty(1)->allow_nonref(1) }
 sub _build_ua_obj {
-    return LWP::UserAgent->new(
+    my $ua = LWP::UserAgent->new(
         keep_alive => 1,
     );
+    $ua->env_proxy;
+    return $ua;
 }
 
 =head1 EVENT CONTEXT
